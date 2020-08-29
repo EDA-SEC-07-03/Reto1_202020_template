@@ -29,7 +29,7 @@
 import config as cf
 import sys
 import csv
-import functions as fun
+
 
 from ADT import list as lt
 from DataStructures import listiterator as it
@@ -80,8 +80,8 @@ def loadCSVFile (file,cmpfunction):
 #"themoviesdb/MoviesCastingRaw-small.csv"
 #"themoviesdb/SmallMoviesDetailsCleaned.csv"
 
-def loadMovies (DIR="themoviesdb/AllMoviesCastingRaw.csv"):
-    lst = loadCSVFile(DIR,compareRecordIds) 
+def loadMovies(dire="themoviesdb/AllMoviesCastingRaw.csv"):
+    lst = loadCSVFile(dire,compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
