@@ -29,6 +29,7 @@
 import config as cf
 import sys
 import csv
+import functions as fun
 
 
 from ADT import list as lt
