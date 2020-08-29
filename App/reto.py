@@ -30,6 +30,7 @@ import config as cf
 import sys
 import csv
 
+
 from ADT import list as lt
 from DataStructures import listiterator as it
 from DataStructures import liststructure as lt
@@ -63,12 +64,12 @@ def compareRecordIds (recordA, recordB):
 
 
 
-def loadCSVFile (file, cmpfunction):
+def loadCSVFile (file,cmpfunction):
     lst=lt.newList("ARRAY_LIST", cmpfunction)
     dialect = csv.excel()
     dialect.delimiter=";"
     try:
-        with open(  cf.data_dir + file, encoding="utf-8") as csvfile:
+        with open( cf.data_dir + file, encoding="utf-8") as csvfile:
             row = csv.DictReader(csvfile, dialect=dialect)
             for elemento in row: 
                 lt.addLast(lst,elemento)
@@ -76,9 +77,11 @@ def loadCSVFile (file, cmpfunction):
         print("Hubo un error con la carga del archivo")
     return lst
 
+#"themoviesdb/MoviesCastingRaw-small.csv"
+#"themoviesdb/SmallMoviesDetailsCleaned.csv"
 
-def loadMovies ():
-    lst = loadCSVFile("theMoviesdb/movies-small.csv",compareRecordIds) 
+def loadMovies(dire="themoviesdb/AllMoviesCastingRaw.csv"):
+    lst = loadCSVFile(dire,compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
 
@@ -99,13 +102,23 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0])==1: #opcion 1
-                lstmovies = loadMovies()
+                datos=loadMovies()
 
             elif int(inputs[0])==2: #opcion 2
                 pass
 
             elif int(inputs[0])==3: #opcion 3
-                pass
+                director=input("Digite el director que desea buscar:\n")
+                conocer_director=fun.conocer_a_director(director,datos)
+                print("_________________________________________")
+                print("Número de películas:",conocer_director[2],"  ","Promedio de calificación:",conocer_director[1])
+                print("_________________________________________")
+                x=1
+                for i in conocer_director[0]:
+                    print(x,i)
+                    x+=1
+                print("_________________________________________")
+
 
             elif int(inputs[0])==4: #opcion 4
                 pass
