@@ -5,9 +5,9 @@ from time import process_time
 
 from ADT import list as lt
 from DataStructures import liststructure as lt
-from Sorting import selectionsort as selectionsort
-from Sorting import insertionsort as insertionsort
-from Sorting import shellsort as shellsort
+from Sorting import selectionsort as sel
+from Sorting import insertionsort as ins
+from Sorting import shellsort as she
 import reto as rt 
 
 
@@ -17,11 +17,27 @@ import reto as rt
 
 #"themoviesdb/MoviesCastingRaw-small.csv"
 #"themoviesdb/SmallMoviesDetailsCleaned.csv"
-movies=rt.loadMovies("themoviesdb/SmallMoviesDetailsCleaned.csv")
 
-def conocer_a_director(director,datos_casting)->tuple:
+def comparador_ascendente(pos1,pos2):
+    if float(pos1["votos"]) > float(pos2["votos"]):
+        return True
+    return False
+def comparador_descendente(pos1,pos2):
+    if float(pos1["votos"]) < float(pos2["votos"]):
+        return True
+    return False
+
+def comparador_ascendente_average(pos1,pos2):
+    if float(pos1["promedio"]) > float(pos2["promedio"]):
+        return True
+    return False
+def comparador_descendente_average(pos1,pos2):
+    if float(pos1["promedio"]) < float(pos2["promedio"]):
+        return True
+    return False
+
+def conocer_a_director(director,datos_casting,datos_movies)->tuple:
     tiempo1=process_time()
-    datos_movies=rt.loadMovies("themoviesdb/AllMoviesDetailsCleaned.csv")  
     peliculas=[]
     promedio=0
     pos_directores=[]
@@ -49,48 +65,89 @@ def conocer_a_director(director,datos_casting)->tuple:
 
 #usuario elige si es AVERAGE O COUNT
 #usuario elige si desea una lista ascendente o descendente
-def ordenadorx(objeto1,objeto2):
-    pass
-def crear_ranking_gen(movies=movies,orden="count",tipo="Ascendente",numero_de_peliculas=10,genero="Crime"):
+"""usuario elige si desea resultados votos(vote_count) o votos en promedio(vote_average), 
+los resultados descendentes son re ordenados de nuevo usando los votos si el usuario eligio promedio, 
+o usando el promedio si el usuario eligio datos""" 
+
+
+def crear_ranking_gen(movies,orden,tipo,genero,numero_de_peliculas=10):
     if(tipo.lower() == "ascendente"):
-        if(orden.lower() == "count" ):
+        if(orden.lower() == "votos" ):
             peliculas_genero=lt.newList("ARRAY_LIST")
+            eleccion_usuario=lt.newList("ARRAY_LIST")
             for i in range(1,lt.size(movies)):
                 elemento=lt.getElement(movies,i)
                 if(genero.lower() in elemento["genres"].lower()):
                     pelis={}
-                    pelis[elemento["title"]]=float(elemento["vote_count"])
+                    pelis["titulo"]=elemento["title"]
+                    pelis["votos"]=float(elemento["vote_count"])
+                    pelis["promedio"]=float(elemento["vote_average"])
                     lt.addLast(peliculas_genero,pelis)
-                if(lt.size(peliculas_genero) == numero_de_peliculas):
+            she.shellSort(peliculas_genero,comparador_ascendente)
+            for i in range(1,lt.size(peliculas_genero)):
+                lt.addLast(eleccion_usuario,lt.getElement(peliculas_genero,i))
+                if(lt.size(eleccion_usuario) == numero_de_peliculas):
                     break
-            print(peliculas_genero)
-        elif(orden.lower() == "average"):
+            return eleccion_usuario
+            
+        elif(orden.lower() == "promedio" ):
             peliculas_genero=lt.newList("ARRAY_LIST")
+            eleccion_usuario=lt.newList("ARRAY_LIST")
             for i in range(1,lt.size(movies)):
                 elemento=lt.getElement(movies,i)
-                pelis={}
                 if(genero.lower() in elemento["genres"].lower()):
-                    pelis[elemento["title"]]=float(elemento["vote_average"])
-                lt.addLast(peliculas_genero,pelis)
+                    pelis={}
+                    pelis["titulo"]=elemento["title"]
+                    pelis["votos"]=float(elemento["vote_count"])
+                    pelis["promedio"]=float(elemento["vote_average"])
+                    lt.addLast(peliculas_genero,pelis)
+            she.shellSort(peliculas_genero,comparador_ascendente_average)
+            for i in range(1,lt.size(peliculas_genero)):
+                lt.addLast(eleccion_usuario,lt.getElement(peliculas_genero,i))
+                if(lt.size(eleccion_usuario) == numero_de_peliculas):
+                    break
+            return eleccion_usuario
 
-    """elif(tipo.lower() == "descendente"):
-        if(orden.lower() == "count" ):
+    elif(tipo.lower() == "descendente"):
+        if(orden.lower() == "votos" ):
             peliculas_genero=lt.newList("ARRAY_LIST")
+            eleccion_usuario=lt.newList("ARRAY_LIST")
             for i in range(1,lt.size(movies)):
                 elemento=lt.getElement(movies,i)
-                pelis={}
                 if(genero.lower() in elemento["genres"].lower()):
-                    pelis[elemento["title"]]=float(elemento["vote_count"])
-                lt.addLast(peliculas_genero,pelis)
-        elif(ordenamiento.lower() == "average"):
+                    pelis={}
+                    pelis["titulo"]=elemento["title"]
+                    pelis["votos"]=float(elemento["vote_count"])
+                    pelis["promedio"]=float(elemento["vote_average"])
+                    lt.addLast(peliculas_genero,pelis)
+            she.shellSort(peliculas_genero,comparador_descendente)
+            for i in range(1,lt.size(peliculas_genero)):
+                lt.addLast(eleccion_usuario,lt.getElement(peliculas_genero,i))
+                if(lt.size(eleccion_usuario) == numero_de_peliculas):
+                    break
+            she.shellSort(eleccion_usuario,comparador_descendente_average)
+            return eleccion_usuario
+            
+        elif(orden.lower() == "promedio" ):
             peliculas_genero=lt.newList("ARRAY_LIST")
+            eleccion_usuario=lt.newList("ARRAY_LIST")
             for i in range(1,lt.size(movies)):
                 elemento=lt.getElement(movies,i)
-                pelis={}
                 if(genero.lower() in elemento["genres"].lower()):
-                    pelis[elemento["title"]]=float(elemento["vote_average"])
-                lt.addLast(peliculas_genero,pelis)"""
-crear_ranking_gen()
+                    pelis={}
+                    pelis["titulo"]=elemento["title"]
+                    pelis["votos"]=float(elemento["vote_count"])
+                    pelis["promedio"]=float(elemento["vote_average"])
+                    lt.addLast(peliculas_genero,pelis)
+            she.shellSort(peliculas_genero,comparador_descendente_average)
+            for i in range(1,lt.size(peliculas_genero)):
+                lt.addLast(eleccion_usuario,lt.getElement(peliculas_genero,i))
+                if(lt.size(eleccion_usuario) == numero_de_peliculas):
+                    break
+            she.shellSort(eleccion_usuario,comparador_descendente)
+            return eleccion_usuario
+
+
 
 
 
