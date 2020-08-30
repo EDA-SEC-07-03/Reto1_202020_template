@@ -52,38 +52,7 @@ def printMenu():
     print("5- Entender un genero")
     print("6- Crear ranking")
     print("0- Salir")
-
-def crear_ranking_peliculas(lst : list, numero : int, eleccion_orden : str, eleccion_mejor : str):
-    ## la eleccion orden es para saber si se pone del mejor al peor o como. 
-    ##y la eleccion_mejor es para saber si quiere los mejores o las peores###
-    n_votos = []
-    p_votos = []
-    nombres = []
-    retorno = []
-    for i in range(1, len(lst)-1):
-        n_votos.append(int(lst[i]["vote_count"]))
-        p_votos.append(float(lst[i]["vote_average"]))
-        nombres.append(lst[i]["name"])
-    x = 0
-    if eleccion_mejor == "mejores":
-        while x != numero:
-            m = max(n_votos)
-            busca = n_votos.index(x)
-            retorno.append(nombres[busca])
-            x += 1
-    if eleccion_mejor == "peores":
-        while x != numero:
-            m = min(p_votos)
-            busca = p_votos.index(x)
-            retorno.append(nombres[busca])
-            x +=1
-    if eleccion_orden == "ascendente":
-        return retorno
-    if eleccion_orden == "descendente":
-        return retorno.reverse()
         
-
-
 
 def compareRecordIds (recordA, recordB):
     if int(recordA['id']) == int(recordB['id']):
@@ -91,7 +60,6 @@ def compareRecordIds (recordA, recordB):
     elif int(recordA['id']) > int(recordB['id']):
         return 1
     return -1
-
 
 
 def loadCSVFile (file,cmpfunction):
