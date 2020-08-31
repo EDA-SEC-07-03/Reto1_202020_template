@@ -78,8 +78,6 @@ def loadCSVFile (file,cmpfunction):
         print("Hubo un error con la carga del archivo")
     return lst
 
-#"themoviesdb/MoviesCastingRaw-small.csv"
-#"themoviesdb/SmallMoviesDetailsCleaned.csv"
 
 def loadMovies(dire):
     lst = loadCSVFile(dire,compareRecordIds) 
@@ -96,7 +94,8 @@ def main():
     Return: None 
     """
 
-
+#"themoviesdb/MoviesCastingRaw-small.csv"
+#"themoviesdb/SmallMoviesDetailsCleaned.csv"
     while True:
         printMenu() #imprimir el menu de opciones en consola
         inputs =input('Seleccione una opción para continuar\n') #leer opción ingresada
@@ -107,7 +106,174 @@ def main():
                 datos_movies=loadMovies("themoviesdb/AllMoviesDetailsCleaned.csv")
 
             elif int(inputs[0])==2: #opcion 2
-                pass
+                decision1=int(input("Sí desea que sus peliculas se ordenen como más votadas digite :1, si por el contrario desea que sea como menos votadas digite 0.\n"))
+                decision2=int(input("Sí desea que sus peliculas se ordenen como mejor calificadas con respecto al promedio :1, si por el contrario desea que sean las peor calificadas digite 0.\n"))
+                cantidad=input("¿Desea una cantidad por defecto para ambas listas? si/no\n")
+                if(cantidad.lower() == "no"):
+                    cantidad1=int(input("Digite el tamaño de su ranking peliculas mas votadas/menos votadas:\n"))
+                    cantidad2=int(input("Digite el tamaño de su ranking peliculas mejor/peor promedio:\n"))
+                    if(decision1 == 1 and decision2 == 1):
+                        elementos=fun.crear_ranking_peliculas("mas votadas","mejor calificadas",datos_movies,cantidad1,cantidad2)
+                        print("_________________________________________")
+                        print("Top",cantidad1,"Peliculas mejor votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top",cantidad2,"Peliculas mejor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                    elif(decision1 == 0  and decision2 == 0):
+                        elementos=fun.crear_ranking_peliculas("menos votadas","peor calificadas",datos_movies,cantidad1,cantidad2)
+                        print("_________________________________________")
+                        print("Top",cantidad1,"Peliculas menos votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top",cantidad2,"Peliculas peor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                    elif(decision1 == 1  and decision2 == 0):
+                        elementos=fun.crear_ranking_peliculas("mas votadas","mejor calificadas",datos_movies,cantidad1,cantidad2)
+                        print("_________________________________________")
+                        print("Top",cantidad1,"Peliculas mejor votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top",cantidad2,"Peliculas peor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                    elif(decision1 == 0  and decision2 == 1):
+                        elementos=fun.crear_ranking_peliculas("mas votadas","mejor calificadas",datos_movies,cantidad1,cantidad2)
+                        print("_________________________________________")
+                        print("Top",cantidad1,"Peliculas menos votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top",cantidad2,"Peliculas mejor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+                        print("_________________________________________")
+                    
+                elif(cantidad.lower() == "si"):
+                    if(decision1 == 1 and decision2 == 1):
+                        elementos=fun.crear_ranking_peliculas("mas votadas","mejor calificadas",datos_movies)
+                        print("_________________________________________")
+                        print("Top","10","Peliculas mejor votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top","10","Peliculas mejor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                    elif(decision1 == 0  and decision2 == 0):
+                        elementos=fun.crear_ranking_peliculas("menos votadas","peor calificadas",datos_movies)
+                        print("_________________________________________")
+                        print("Top","10","Peliculas menos votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top","10","Peliculas peor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                    elif(decision1 == 1  and decision2 == 0):
+                        elementos=fun.crear_ranking_peliculas("mas votadas","mejor calificadas",datos_movies)
+                        print("_________________________________________")
+                        print("Top","10","Peliculas mejor votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top","10","Peliculas peor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                    elif(decision1 == 0  and decision2 == 1):
+                        elementos=fun.crear_ranking_peliculas("mas votadas","mejor calificadas",datos_movies)
+                        print("_________________________________________")
+                        print("Top","10","Peliculas menos votadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[0])+1):
+                            print(x,lt.getElement(elementos[0],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                        print("_________________________________________")
+                        print("Top","10","Peliculas mejor calificadas.")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(elementos[1])+1):
+                            print(x,lt.getElement(elementos[1],i)["titulo"])
+                            x+=1
+
+                        print("_________________________________________")
+                
+
 
             elif int(inputs[0])==3: #opcion 3
                 director=input("Digite el director que desea buscar:\n")
