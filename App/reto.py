@@ -135,6 +135,7 @@ def main():
                 numero = int(input("Digite cuantas peliculas quiere en el ranking: "))
                 eleccion_orden = input("Digite si quiere que el ranking sea ascendente o descendente: ")
                 funcion = crear_ranking_peliculas(datos_movies, numero, eleccion_orden, eleccion_mejor)
+                print(funcion)
                 pass
 
             elif int(inputs[0])==3: #opcion 3
