@@ -38,21 +38,6 @@ from DataStructures import liststructure as lt
 
 from time import process_time 
 
-
-
-def printMenu():
-    """
-    Imprime el menu de opciones
-    """
-    print("\nBienvenido")
-    print("1- Cargar Datos")
-    print("2- Ranking de peliculas")
-    print("3- Conocer un director")
-    print("4- Conocer un actor")
-    print("5- Entender un genero")
-    print("6- Crear ranking")
-    print("0- Salir")
-
 def crear_ranking_peliculas(lst : list, numero : int, eleccion_orden : str, eleccion_mejor : str):
     ## la eleccion orden es para saber si se pone del mejor al peor o como. 
     ##y la eleccion_mejor es para saber si quiere los mejores o las peores###
@@ -81,9 +66,20 @@ def crear_ranking_peliculas(lst : list, numero : int, eleccion_orden : str, elec
         return retorno
     if eleccion_orden == "descendente":
         return retorno.reverse()
+
+def printMenu():
+    """
+    Imprime el menu de opciones
+    """
+    print("\nBienvenido")
+    print("1- Cargar Datos")
+    print("2- Ranking de peliculas")
+    print("3- Conocer un director")
+    print("4- Conocer un actor")
+    print("5- Entender un genero")
+    print("6- Crear ranking")
+    print("0- Salir")
         
-
-
 
 def compareRecordIds (recordA, recordB):
     if int(recordA['id']) == int(recordB['id']):
@@ -91,7 +87,6 @@ def compareRecordIds (recordA, recordB):
     elif int(recordA['id']) > int(recordB['id']):
         return 1
     return -1
-
 
 
 def loadCSVFile (file,cmpfunction):
@@ -110,7 +105,7 @@ def loadCSVFile (file,cmpfunction):
 #"themoviesdb/MoviesCastingRaw-small.csv"
 #"themoviesdb/SmallMoviesDetailsCleaned.csv"
 
-def loadMovies(dire="themoviesdb/AllMoviesCastingRaw.csv"):
+def loadMovies(dire):
     lst = loadCSVFile(dire,compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
@@ -132,14 +127,15 @@ def main():
         if len(inputs)>0:
 
             if int(inputs[0])==1: #opcion 1
-                datos=loadMovies()
+                datos_casting=loadMovies("themoviesdb/AllMoviesCastingRaw.csv")
+                datos_movies=loadMovies("themoviesdb/AllMoviesDetailsCleaned.csv")
 
             elif int(inputs[0])==2: #opcion 2
                 pass
 
             elif int(inputs[0])==3: #opcion 3
                 director=input("Digite el director que desea buscar:\n")
-                conocer_director=fun.conocer_a_director(director,datos)
+                conocer_director=fun.conocer_a_director(director,datos_casting,datos_movies)
                 print("_________________________________________")
                 print("Número de películas:",conocer_director[2],"  ","Promedio de calificación:",conocer_director[1])
                 print("_________________________________________")
@@ -153,12 +149,64 @@ def main():
             elif int(inputs[0])==4: #opcion 4
                 pass
 
-            elif int(inputs[0])==3: #opcion 5
+            elif int(inputs[0])==5: #opcion 5
                 pass
 
-            elif int(inputs[0])==4: #opcion 6
-                pass
+            elif int(inputs[0])==6: #opcion 6
+                genero=input("¿Cuál género desea buscar?:\n")
+                ascendente_descendente=input("Sí desea una lista de las mejores peliculas digite:ascendente,si desea una lista de las peores peliculas digite: descendente. \n")
+                criterio=input("Elija con que criterio desea realizar su búsqueda, por número de votos digite: votos, para que sea con respecto al promedio digite: promedio. \n")
+                deseo=input("¿desea un ranking por defecto(10 películas)?: Si o No:\n")
+                tamaño=0
+                if(deseo.lower() == "si" ):
+                    resultado=fun.crear_ranking_gen(datos_movies,criterio,ascendente_descendente,genero)
+                elif(deseo.lower() == "no" ):
+                    tamaño=int(input("Elija el número de peliculas que desea para su ranking:\n"))
+                    resultado=fun.crear_ranking_gen(datos_movies,criterio,ascendente_descendente,genero,tamaño)
+                if(ascendente_descendente == "ascendente"):
+                    print("_________________________________________")
+                    if(deseo == "si"):
+                        print("Top 10 mejores peliculas de:",genero)
+                        print("Top,Titulo,Votos,Promedio")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(resultado)+1):
+                            print(x,(lt.getElement(resultado,i))["titulo"],",",(lt.getElement(resultado,i))["votos"],",",(lt.getElement(resultado,i))["promedio"])
+                            x+=1
+                        print("_________________________________________")
 
+                    elif(deseo== "no"):
+                        print("top",tamaño,"mejores peliculas de:",genero)
+                        print("Top,Titulo,Votos,Promedio")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(resultado)+1):
+                            print(x,(lt.getElement(resultado,i))["titulo"],",",(lt.getElement(resultado,i))["votos"],",",(lt.getElement(resultado,i))["promedio"])
+                            x+=1
+                        print("_________________________________________")
+                elif(ascendente_descendente == "descendente"):
+                    print("_________________________________________")
+                    if(deseo == "si"):
+                        print("Top 10 peores peliculas de",genero)
+                        print("Top,Titulo,Votos,Promedio")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(resultado)+1):
+                            print(x,(lt.getElement(resultado,i))["titulo"],",",(lt.getElement(resultado,i))["votos"],",",(lt.getElement(resultado,i))["promedio"])
+                            x+=1
+                        print("_________________________________________")
+
+                    elif(deseo== "no"):
+                        print("top",tamaño,"peores peliculas de:",genero)
+                        print("Top,Titulo,Votos,Promedio")
+                        print("_________________________________________")
+                        x=1
+                        for i in range(1,lt.size(resultado)+1):
+                            print(x,(lt.getElement(resultado,i))["titulo"],",",(lt.getElement(resultado,i))["votos"],",",(lt.getElement(resultado,i))["promedio"])
+                            x+=1
+                        print("_________________________________________")
+                        
+                
 
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
