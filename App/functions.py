@@ -36,6 +36,56 @@ def comparador_descendente_average(pos1,pos2):
         return True
     return False
 
+def entender_un_genero(genero,peliculas):
+    tiempo1=process_time()
+    peli_genero=lt.newList("SINGLE_LINKED")
+    promedio=0
+    for i in range(1,lt.size(peliculas)):
+        elemento=lt.getElement(peliculas,i)
+        if(genero.lower() in elemento["genres"].lower()):
+            lt.addLast(peli_genero,elemento["title"])
+            promedio+=int(elemento["vote_count"])
+    tiempo2=process_time()
+    retorno=(peli_genero,tiempo2-tiempo1,promedio/lt.size(peli_genero))
+    return retorno
+
+def conocer_a_actor(datos_movies,datos_casting,actor):
+    identificacion=lt.newList("ARRAY_LIST")
+    directores={}
+    promedio=0
+    for i in range(1,lt.size(datos_casting)):
+        elemento=lt.getElement(datos_casting,i)
+        if(actor.lower() == elemento["actor1_name"].lower() or actor.lower() == elemento["actor2_name"].lower() or actor.lower() == elemento["actor3_name"].lower() or actor.lower() == elemento["actor4_name"].lower() or actor.lower() == elemento["actor5_name"].lower()):
+            lt.addLast(identificacion,int(elemento["id"]))
+            if(elemento["director_name"] not in directores):
+                directores[elemento["director_name"]]=1
+            elif(elemento["director_name"] in directores):
+                directores[elemento["director_name"]]+=1
+
+    info_peliculas=lt.newList("ARRAY_LIST")
+    for i in range(0,lt.size(identificacion)):
+        for a in range(1,lt.size(datos_movies)):
+            elemento=lt.getElement(datos_movies,a)
+            if(lt.getElement(identificacion,i) == int(elemento["\ufeffid"])):
+                lt.addLast(info_peliculas,elemento["title"])
+                promedio+=float(elemento["vote_average"])
+                break
+
+    director_mas=max(directores.values())
+    for i in directores:
+        if(directores[i] == director_mas):
+            director_final=i
+            break
+    promedio=round(promedio/lt.size(identificacion),2)
+    numero_de_peliculas=lt.size(identificacion)
+    retorno=(info_peliculas,numero_de_peliculas,promedio,director_final)
+    return retorno
+
+    
+
+
+
+
 def conocer_a_director(director,datos_casting,datos_movies)->tuple:
     tiempo1=process_time()
     peliculas=[]
