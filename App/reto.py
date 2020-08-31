@@ -131,6 +131,10 @@ def main():
                 datos_movies=loadMovies("themoviesdb/AllMoviesDetailsCleaned.csv")
 
             elif int(inputs[0])==2: #opcion 2
+                eleccion_mejor = input("Digite ´mejores´, si quiere un ranking de las mejores peliculas, o, de peores si quiere un ranking de las peores: ")
+                numero = int(input("Digite cuantas peliculas quiere en el ranking: "))
+                eleccion_orden = input("Digite si quiere que el ranking sea ascendente o descendente: ")
+                funcion = crear_ranking_peliculas(datos_movies, numero, eleccion_orden, eleccion_mejor)
                 pass
 
             elif int(inputs[0])==3: #opcion 3
