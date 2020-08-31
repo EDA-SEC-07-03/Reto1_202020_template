@@ -36,6 +36,10 @@ def comparador_descendente_average(pos1,pos2):
         return True
     return False
 
+def funcion_faltante():
+    pass
+
+
 def entender_un_genero(genero,peliculas):
     tiempo1=process_time()
     peli_genero=lt.newList("SINGLE_LINKED")
@@ -80,11 +84,6 @@ def conocer_a_actor(datos_movies,datos_casting,actor):
     numero_de_peliculas=lt.size(identificacion)
     retorno=(info_peliculas,numero_de_peliculas,promedio,director_final)
     return retorno
-
-    
-
-
-
 
 def conocer_a_director(director,datos_casting,datos_movies)->tuple:
     tiempo1=process_time()
