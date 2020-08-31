@@ -53,7 +53,7 @@ def crear_ranking_peliculas(lst : list, numero : int, eleccion_orden : str, elec
     if eleccion_mejor == "mejores":
         while x != numero:
             m = max(n_votos)
-            busca = n_votos.index(x)
+            busca = n_votos.index(m)
             retorno.append(nombres[busca])
             x += 1
     if eleccion_mejor == "peores":
