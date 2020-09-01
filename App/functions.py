@@ -62,6 +62,21 @@ def conocer_a_director(director,datos_casting,datos_movies)->tuple:
     tiempo2=process_time()
     print("Su tiempo fue de",tiempo2-tiempo1,"segundos.")
     return retorno
+def conocer_genero(lst: list, genero: str): #conocer genero###
+    genero.lower()
+    peliculas = []
+    votos = 0
+    contador = 0
+    for i in lst:
+        if genero == i["genero"]:
+            peliculas.append(i["title"])
+            votos += int(i["vote_count"])
+            contador += 1
+    promedio = str(round(votos/contador, 2))
+    contador = str(contador)
+    retorno = ("hay "+ contador +" peliculas de"+ genero, "El promedio de votos los votos es: "+ promedio,"Y estas son las peliculas",peliculas )
+    return retorno
+
 
 #usuario elige si es AVERAGE O COUNT
 #usuario elige si desea una lista ascendente o descendente
