@@ -109,7 +109,20 @@ def loadMovies(dire):
     lst = loadCSVFile(dire,compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
-
+def conocer_genero(lst: list, genero: str): #conocer genero###
+    genero.lower()
+    peliculas = []
+    votos = 0
+    contador = 0
+    for i in lst:
+        if genero == i["genero"]:
+            peliculas.append(i["title"])
+            votos += int(i["vote_count"])
+            contador += 1
+    promedio = str(round(votos/contador, 2))
+    contador = str(contador)
+    retorno = ("hay "+ contador +" peliculas de"+ genero, "El promedio de votos los votos es: "+ promedio,"Y estas son las peliculas",peliculas )
+    return retorno
 
 def main():
     """
@@ -135,6 +148,7 @@ def main():
                 numero = int(input("Digite cuantas peliculas quiere en el ranking: "))
                 eleccion_orden = input("Digite si quiere que el ranking sea ascendente o descendente: ")
                 funcion = crear_ranking_peliculas(datos_movies, numero, eleccion_orden, eleccion_mejor)
+                print(funcion)
                 pass
 
             elif int(inputs[0])==3: #opcion 3
@@ -154,6 +168,8 @@ def main():
                 pass
 
             elif int(inputs[0])==5: #opcion 5
+                genero = input("escriba el genero de su interes: ")
+                resultado = conocer_genero(datos_movies, genero)
                 pass
 
             elif int(inputs[0])==6: #opcion 6
