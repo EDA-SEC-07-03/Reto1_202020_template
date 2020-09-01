@@ -109,7 +109,20 @@ def loadMovies(dire):
     lst = loadCSVFile(dire,compareRecordIds) 
     print("Datos cargados, " + str(lt.size(lst)) + " elementos cargados")
     return lst
-
+def conocer_genero(lst: list, genero: str): #conocer genero###
+    genero.lower()
+    peliculas = []
+    votos = 0
+    contador = 0
+    for i in lst:
+        if genero == i["genero"]:
+            peliculas.append(i["title"])
+            votos += int(i["vote_count"])
+            contador += 1
+    promedio = str(round(votos/contador, 2))
+    contador = str(contador)
+    retorno = ("hay "+ contador +" peliculas de"+ genero, "El promedio de votos los votos es: "+ promedio,"Y estas son las peliculas",peliculas )
+    return retorno
 
 def main():
     """
@@ -155,6 +168,7 @@ def main():
                 pass
 
             elif int(inputs[0])==5: #opcion 5
+                
                 pass
 
             elif int(inputs[0])==6: #opcion 6
