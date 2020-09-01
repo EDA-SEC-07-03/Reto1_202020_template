@@ -168,7 +168,8 @@ def main():
                 pass
 
             elif int(inputs[0])==5: #opcion 5
-                
+                genero = input("escriba el genero de su interes: ")
+                resultado = conocer_genero(datos_movies, genero)
                 pass
 
             elif int(inputs[0])==6: #opcion 6
