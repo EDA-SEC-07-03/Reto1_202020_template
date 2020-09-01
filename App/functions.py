@@ -68,7 +68,6 @@ def conocer_a_director(director,datos_casting,datos_movies)->tuple:
 """usuario elige si desea resultados votos(vote_count) o votos en promedio(vote_average), 
 los resultados descendentes son re ordenados de nuevo usando los votos si el usuario eligio promedio, 
 o usando el promedio si el usuario eligio datos""" 
-<<<<<<< HEAD
 def conocer_genero(lst: list, genero: str): #conocer genero###
     genero.lower()
     peliculas = []
@@ -84,9 +83,6 @@ def conocer_genero(lst: list, genero: str): #conocer genero###
     retorno = ("hay "+ contador +" peliculas de"+ genero, "El promedio de votos los votos es: "+ promedio,"Y estas son las peliculas",peliculas )
     return retorno
     
-=======
-
->>>>>>> master
 
 def crear_ranking_gen(movies,orden,tipo,genero,numero_de_peliculas=10):
     if(tipo.lower() == "ascendente"):
@@ -173,7 +169,3 @@ def crear_ranking_gen(movies,orden,tipo,genero,numero_de_peliculas=10):
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
