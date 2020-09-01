@@ -82,6 +82,7 @@ def conocer_genero(lst: list, genero: str): #conocer genero###
     contador = str(contador)
     retorno = ("hay "+ contador +" peliculas de"+ genero, "El promedio de votos los votos es: "+ promedio,"Y estas son las peliculas",peliculas )
     return retorno
+    
 
 def crear_ranking_gen(movies,orden,tipo,genero,numero_de_peliculas=10):
     if(tipo.lower() == "ascendente"):
