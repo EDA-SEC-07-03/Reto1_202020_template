@@ -2,6 +2,7 @@ import config as cf
 import sys
 import csv
 from time import process_time
+import functions as fun
 
 from ADT import list as lt
 from DataStructures import liststructure as lt
