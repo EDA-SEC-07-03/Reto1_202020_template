@@ -43,7 +43,7 @@ def crear_ranking_peliculas(decision1,decision2,movies,cantidad_count=10,cantida
     peliculas_count=lt.newList("ARRAY_LIST")
     peliculas_average=lt.newList("ARRAY_LIST")
     if(decision1.lower() == "mas votadas"):
-        for i in range(0,lt.size(movies)):
+        for i in range(1,lt.size(movies)):
             elemento=lt.getElement(movies,i)
             datos={}
             datos["titulo"]=elemento["title"]
@@ -96,9 +96,10 @@ def crear_ranking_peliculas(decision1,decision2,movies,cantidad_count=10,cantida
     tiempo2=process_time()
     return (total_count,total_average,tiempo2-tiempo1)
 
+
 def entender_un_genero(genero,peliculas):
     tiempo1=process_time()
-    peli_genero=lt.newList("SINGLE_LINKED")
+    peli_genero=lt.newList("ARRAY_LIST")
     promedio=0
     for i in range(1,lt.size(peliculas)):
         elemento=lt.getElement(peliculas,i)
@@ -109,37 +110,6 @@ def entender_un_genero(genero,peliculas):
     retorno=(peli_genero,tiempo2-tiempo1,promedio/lt.size(peli_genero))
     return retorno
 
-def conocer_a_actor(datos_movies,datos_casting,actor):
-    identificacion=lt.newList("ARRAY_LIST")
-    directores={}
-    promedio=0
-    for i in range(1,lt.size(datos_casting)):
-        elemento=lt.getElement(datos_casting,i)
-        if(actor.lower() == elemento["actor1_name"].lower() or actor.lower() == elemento["actor2_name"].lower() or actor.lower() == elemento["actor3_name"].lower() or actor.lower() == elemento["actor4_name"].lower() or actor.lower() == elemento["actor5_name"].lower()):
-            lt.addLast(identificacion,int(elemento["id"]))
-            if(elemento["director_name"] not in directores):
-                directores[elemento["director_name"]]=1
-            elif(elemento["director_name"] in directores):
-                directores[elemento["director_name"]]+=1
-
-    info_peliculas=lt.newList("ARRAY_LIST")
-    for i in range(0,lt.size(identificacion)):
-        for a in range(1,lt.size(datos_movies)):
-            elemento=lt.getElement(datos_movies,a)
-            if(lt.getElement(identificacion,i) == int(elemento["\ufeffid"])):
-                lt.addLast(info_peliculas,elemento["title"])
-                promedio+=float(elemento["vote_average"])
-                break
-
-    director_mas=max(directores.values())
-    for i in directores:
-        if(directores[i] == director_mas):
-            director_final=i
-            break
-    promedio=round(promedio/lt.size(identificacion),2)
-    numero_de_peliculas=lt.size(identificacion)
-    retorno=(info_peliculas,numero_de_peliculas,promedio,director_final)
-    return retorno
 
 def conocer_a_director(director,datos_casting,datos_movies)->tuple:
     tiempo1=process_time()
@@ -175,7 +145,7 @@ los resultados descendentes son re ordenados de nuevo usando los votos si el usu
 o usando el promedio si el usuario eligio datos""" 
 
 
-def crear_ranking_gen(movies,orden,tipo,genero,numero_de_peliculas=10):
+def crear_ranking_gen(movie,orden,tipo,genero,numero_de_peliculas=10):
     if(tipo.lower() == "ascendente"):
         if(orden.lower() == "votos" ):
             peliculas_genero=lt.newList("ARRAY_LIST")

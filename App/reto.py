@@ -289,24 +289,8 @@ def main():
 
 
             elif int(inputs[0])==4: #opcion 4
-                actor=input("¿qué actor desea consultar?:\n")
-                peliculasxx=fun.conocer_a_actor(datos_movies,datos_casting,actor)
-                print("_________________________________________")
-                print("Actor:",actor,"Número de películas:",peliculasxx[1],"Promedio de calificación:",peliculasxx[2],"Director con más colaboraciones:",peliculasxx[3])
-                print("_________________________________________")
-                x=1
-                for i in range(1,lt.size(peliculasxx[0])+1):
-                    print(x,lt.getElement(peliculasxx[0],i))
-                    x+=1
-                print("_________________________________________")
-                print("Actor:",actor,"Número de películas:",peliculasxx[1],"Promedio de calificación:",peliculasxx[2],"Director con más colaboraciones:",peliculasxx[3])
-                print("_________________________________________")
+                pass
                 
-                
-
-                
-
-
             elif int(inputs[0])==5: #opcion 5
                 genero=input("Elija el género que desea buscar:\n")
                 peliculasx=fun.entender_un_genero(genero,datos_movies)
@@ -376,7 +360,6 @@ def main():
                             x+=1
                         print("_________________________________________")
                         
-                
 
             elif int(inputs[0])==0: #opcion 0, salir
                 sys.exit(0)
