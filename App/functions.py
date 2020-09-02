@@ -161,7 +161,7 @@ los resultados descendentes son re ordenados de nuevo usando los votos si el usu
 o usando el promedio si el usuario eligio datos""" 
 
 
-def crear_ranking_gen(movie,orden,tipo,genero,numero_de_peliculas=10):
+def crear_ranking_gen(movies,orden,tipo,genero,numero_de_peliculas=10):
     if(tipo.lower() == "ascendente"):
         if(orden.lower() == "votos" ):
             peliculas_genero=lt.newList("ARRAY_LIST")
