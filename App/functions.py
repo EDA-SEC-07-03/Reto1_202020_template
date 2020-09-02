@@ -62,6 +62,45 @@ def conocer_a_director(director,datos_casting,datos_movies)->tuple:
     tiempo2=process_time()
     print("Su tiempo fue de",tiempo2-tiempo1,"segundos.")
     return retorno
+
+
+def conocer_a_actor(datos_movies,datos_casting,actor):
+    identificacion=lt.newList("ARRAY_LIST")
+    directores={}
+    promedio=0
+    for i in range(1,lt.size(datos_casting)):
+        elemento=lt.getElement(datos_casting,i)
+        if(actor.lower() == elemento["actor1_name"].lower() or actor.lower() == elemento["actor2_name"].lower() or actor.lower() == elemento["actor3_name"].lower() or actor.lower() == elemento["actor4_name"].lower() or actor.lower() == elemento["actor5_name"].lower()):
+            lt.addLast(identificacion,int(elemento["id"]))
+            if(elemento["director_name"] not in directores):
+                directores[elemento["director_name"]]=1
+            elif(elemento["director_name"] in directores):
+                directores[elemento["director_name"]]+=1
+
+    info_peliculas=lt.newList("ARRAY_LIST")
+    for i in range(0,lt.size(identificacion)):
+        for a in range(1,lt.size(datos_movies)):
+            elemento=lt.getElement(datos_movies,a)
+            if(lt.getElement(identificacion,i) == int(elemento["\ufeffid"])):
+                lt.addLast(info_peliculas,elemento["title"])
+                promedio+=float(elemento["vote_average"])
+                break
+
+    director_mas=max(directores.values())
+    for i in directores:
+        if(directores[i] == director_mas):
+            director_final=i
+            break
+    promedio=round(promedio/lt.size(identificacion),2)
+    numero_de_peliculas=lt.size(identificacion)
+    retorno=(info_peliculas,numero_de_peliculas,promedio,director_final)
+    return retorno
+
+
+
+
+
+    
 def conocer_genero(lst: list, genero: str): #conocer genero###
     genero.lower()
     peliculas = []
