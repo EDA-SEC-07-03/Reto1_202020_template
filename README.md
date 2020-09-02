@@ -9,3 +9,7 @@ Este repositorio contiene una plantilla del proyecto del reto con el ejemplo de 
 *	DataStructures: archivos Python con las estructuras de datos básicas (listas enlazadas y arreglos).
 *	Sorting: archivos Python que implementan los algoritmos de ordenamiento.
 *	Test: pruebas unitarias en Python para validar el código desarrollado.
+
+Nombres: andres felipe guerrero - 202015143 , Juan Esteban Quiroga Roncancio- 202013216, Brian Manuel Rivera Hernández- 202015320.
+
+
